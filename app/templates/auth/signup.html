@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+{% macro render_field(field, placeholder=None) %}
+{% if field.errors %}
+<div>
+    {% elif field.flags.error %}
+    <div>
+        {% else %}
+        <div>
+            {% endif %}
+            {% set css_class = 'form-control ' + kwargs.pop('class', '') %}
+            {{ field(class=css_class, placeholder=placeholder, **kwargs) }}
+        </div>
+        {% endmacro %}
+
+        <div>
+            <div class="border col-md-4 offset-md-4">
+                <legend class="mb-2">Inscription</legend>
+                {% with errors = get_flashed_messages(category_filter=["error"]) %}
+                {% if errors %}
+                <div>
+                    {% for error in errors %}
+                    {{ error }}<br>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% endwith %}
+
+                {% if form.errors %}
+                <div>
+                    {% for field, error in form.errors.items() %}
+                    {% for e in error %}
+                    {{ e }}<br>
+                    {% endfor %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <form method="POST" action="/auth/signup" class="form-group" accept-charset="UTF-8" role="form">
+                    {{ form.csrf_token }}
+                    <div class="mb-3">
+                        {{ render_field(form.nom, placeholder="Nom complet", autofocus="") }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ render_field(form.matricule, placeholder="Matricule") }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ render_field(form.email, placeholder="Adresse mail") }}
+                    </div>
+
+                    <div>
+                        {{ render_field(form.password, placeholder="Mot de passe") }}
+                    </div>
+                    <div class="mt-2 mb-2">
+                        <a role="button" href="/auth/signin" class="txt-steel">Déja inscris veuillez vous connecter ?</a><span class="clearfix"></span>
+                    </div>
+                    <button class="btn-outline col-12 btn" type="submit" name="submit">Inscription</button>
+                </form>
+            </div>
+        </div>
+        {% endblock content %}

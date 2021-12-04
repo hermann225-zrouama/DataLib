@@ -1,0 +1,180 @@
+{% extends "auth/profile/dash.html" %}
+{% block dash_component %}
+<style>
+    /*
+ * Off Canvas sidebar at medium breakpoint
+ * --------------------------------------------------
+ */
+ * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body {
+    background-color: #f4f4f4
+}
+    @media screen and (max-width: 992px) {
+
+        .row-offcanvas {
+            position: relative;
+            -webkit-transition: all 0.25s ease-out;
+            -moz-transition: all 0.25s ease-out;
+            transition: all 0.25s ease-out;
+        }
+
+        .row-offcanvas-left .sidebar-offcanvas {
+            left: -33%;
+        }
+
+        .row-offcanvas-left.active {
+            left: 33%;
+            margin-left: -6px;
+        }
+
+        .sidebar-offcanvas {
+            position: absolute;
+            top: 0;
+            width: 33%;
+            height: 100%;
+        }
+    }
+
+    /*
+ * Off Canvas wider at sm breakpoint
+ * --------------------------------------------------
+ */
+    @media screen and (max-width: 34em) {
+        .row-offcanvas-left .sidebar-offcanvas {
+            left: -45%;
+        }
+
+        .row-offcanvas-left.active {
+            left: 45%;
+            margin-left: -6px;
+        }
+
+        .sidebar-offcanvas {
+            width: 45%;
+        }
+    }
+
+    .card {
+        overflow: hidden;
+    }
+
+    .card-body .rotate {
+        z-index: 8;
+        float: right;
+        height: 100%;
+    }
+
+    .card-body .rotate i {
+        color: rgba(20, 20, 20, 0.15);
+        position: absolute;
+        left: 0;
+        left: auto;
+        right: -10px;
+        bottom: 0;
+        display: block;
+        -webkit-transform: rotate(-44deg);
+        -moz-transform: rotate(-44deg);
+        -o-transform: rotate(-44deg);
+        -ms-transform: rotate(-44deg);
+        transform: rotate(-44deg);
+    }
+</style>
+
+<div class="container">
+    <h2 class="display-6 d-none d-sm-block">
+        État de votre bibliothèque
+    </h2>
+    <p class="lead d-none d-sm-block">Informations générales</p>
+
+    <div class="row mb-3">
+        <div class="col-xl-3 col-sm-6 py-2">
+            <div class="card bg-success text-white h-100">
+                <div class="card-body bg-success">
+                    <div class="rotate">
+                        <i class="fa fa-book fa-4x"></i>
+                    </div>
+                    <h6 class="text-uppercase">Livres en stock</h6>
+                    <h1 class="display-4">134</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 py-2">
+            <div class="card text-white bg-danger h-100">
+                <div class="card-body bg-danger">
+                    <div class="rotate">
+                        <i class="fa fa-list fa-4x"></i>
+                    </div>
+                    <h6 class="text-uppercase">Emprunts en cours</h6>
+                    <h1 class="display-4">87</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 py-2">
+            <div class="card text-white h-100">
+                <div class="card-body bg-steel">
+                    <div class="rotate">
+                        <i class="fa fa-user fa-4x"></i>
+                    </div>
+                    <h6 class="text-uppercase">Utilisateurs</h6>
+                    <h1 class="display-4">125</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 py-2">
+            <div class="card text-white h-100">
+                <div class="card-body bg-steel">
+                    <div class="rotate">
+                        <i class="fa fa-share fa-4x"></i>
+                    </div>
+                    <h6 class="text-uppercase">Demandes de retour</h6>
+                    <h1 class="display-4">5</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/row-->
+
+    <hr>
+    <p class="lead mt-5">
+        Informations sur les emprunts en cours ...
+    </p>
+    <div class="row my-4">
+        <div class="col-lg-12 col-md-8">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th>#</th>
+                            <th>ISBN</th>
+                            <th>Titre</th>
+                            <th>Nom</th>
+                            <th>Date d'emprunt</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>15648</td>
+                            <td>PYTHON POUR LA DATASCIENCE</td>
+                            <td>ZROUAMA FRANCK HERMANN DEBAH</td>
+                            <td>12/02/2021</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>16548</td>
+                            <td>MANAGEMENT DES SYSTÈMES D'INFORMATIONS</td>
+                            <td>KEUPONDJO ARMEL</td> derniers
+                            <td>06/11/2021</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock dash_component %}

@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="content">
+    <link rel="stylesheet" href="/css/profile.css">
+    <div class="container">
+        <!-- end row -->
+        <div class="row">
+            <div class="col-xl-4">
+                <!-- Personal-Information -->
+                <div class="card-box rounded">
+                    <img src="https://www.freepnglogos.com/uploads/spongebob-png/spongebob-user-blog-lockyx-locky-reviews-season-episode-39.png" alt="John" style="width:100%">
+
+                    <div class="panel-body">
+                        <hr>
+                        <div class="text-left">
+                            <p class="text-muted font-13"><strong>Nom complet : </strong> <span
+                                    class="m-l-15">{{user.nom}}</span></p>
+                            <p class="text-muted font-13"><strong>Matricule : </strong><span
+                                    class="m-l-15">{{user.matricule}}</span></p>
+                            <p class="text-muted font-13"><strong>Mail : </strong> <span
+                                    class="m-l-15">{{user.email}}</span></p>
+                            {% if user.role == 0 %}
+                            <p class="text-muted font-13">
+                                <strong>Role : </strong>
+                                <span
+                                    class="m-l-15 text-danger">ADMIN
+                                </span>
+                            </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <!-- Personal-Information -->
+                <div class="card-box ribbon-box">
+                    <div class="ribbon bg-steel">Emprunts</div>
+                    <div class="clearfix"></div>
+                    <div class="inbox-widget">
+                        <a href="#">
+                            <div class="inbox-item">
+                                <div class="inbox-item-img"><img src="https://www.freepnglogos.com/uploads/notebook-png/diary-note-book-spiral-notebook-icon-20.png" alt="">
+                                </div>
+                                <p class="inbox-item-author">Python pour les nuls</p>
+                                <p class="inbox-item-date">
+                                    <button type="button"
+                                        class="btn btn-icon btn-sm waves-effect waves-light btn-dark">Retourner</button>
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-8">
+                <div class="row">
+                    <div class="col-sm-6 ">
+                        <div class="card-box tilebox-one"><i class="icon-layers float-right text-muted"></i>
+                            <h6 class="text-muted text-uppercase mt-0">Emprunts</h6>
+                            <h2 class="" data-plugin="counterup">1,587</h2>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                    <div class="col-sm-6">
+                        <div class="card-box tilebox-one"><i class="icon-paypal float-right text-muted"></i>
+                            <h6 class="text-muted text-uppercase mt-0">Emprunts en cours</h6>
+                            <h2 class="">$<span data-plugin="counterup">46,782</span>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+                <div class="card-box">
+                    <h4 class="header-title mb-3">Historique des emprunts</h4>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Titre</th>
+                                    <th>Date d'emprunt</th>
+                                    <th>Date de depot</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Adminox Admin</td>
+                                    <td>01/01/2015</td>
+                                    <td>07/05/2015</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- end col -->
+        </div>
+        <!-- end row -->
+    </div>
+    <!-- container -->
+</div>
+
+{% endblock content %}

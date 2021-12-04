@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% block content %}
+<link rel="stylesheet" href="/css/home.css">
+<div class="container">
+    <div id="content" class="my-5 row">
+        <div id="filterbar" class="col-md-3">
+            <div class="box border-bottom">
+                <div class="form-group text-center">
+                    <div class="btn-group">
+                        <label class="btn btn-success">
+                            Reinitialiser
+                        </label>
+                        <label class="btn btn-success">
+                            Appliquer
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="box border-bottom">
+                <div class="box-label text-uppercase d-flex align-items-center">Categories <button class="btn ml-auto"
+                        type="button" data-toggle="collapse" data-target="#inner-box" aria-expanded="false"
+                        aria-controls="inner-box" id="out" onclick="outerFilter()"> <span class="fas fa-plus"></span>
+                    </button> </div>
+                <div id="inner-box" class="collapse mt-2 mr-1">
+                    <div class="my-1"> <label class="tick">IA/Machine Learning <input type="checkbox">
+                            <span class="check"></span> </label> </div>
+                    <div class="my-1"> <label class="tick">Programation <input type="checkbox"> <span
+                                class="check"></span>
+                        </label> </div>
+                    <div class="my-1"> <label class="tick">Business <input type="checkbox"> <span class="check"></span>
+                        </label> </div>
+                    <div class="my-1"> <label class="tick">Memoires <input type="checkbox"> <span class="check"></span>
+                        </label> </div>
+                    <div class="my-1"> <label class="tick">Design <input type="checkbox"> <span class="check"></span>
+                        </label> </div>
+                    <div class="my-1"> <label class="tick">Marketing <input type="checkbox"> <span class="check"></span>
+                        </label> </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div id="products" class="col-md-9">
+            <div class="row mx-0">
+
+                {% if books == "NBF" %}
+                    <div class="alert alert-secondary col-12 align-items-center" role="alert">
+                        <small class="text-dark">Aucun livre disponible dans la bibliothèque</small>
+                    </div>
+                {% else %}
+                {% for book in books %}
+                <div class="col-lg-4 col-md-6 pt-md-4 pt-3">
+                    <div class="card d-flex flex-column align-items-center">
+                        <div class="product-name text-center">{{book.title}}</div>
+                        <div class="card-img"> <img
+                                src="https://www.freepnglogos.com/uploads/notebook-png/diary-note-book-spiral-notebook-icon-20.png"
+                                alt=""> </div>
+                        <div class="card-body pt-5">
+                            <div class="text-success text-center mt-auto">Disponible</div>
+                            <div class="d-flex align-items-center justify-content-center price">
+                                <div class="font-weight-bold">Voir</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    // For Filters
+    document.addEventListener("DOMContentLoaded", function () {
+        $('#inner-box').collapse(false);
+
+    });
+
+    const canvasEl = document.querySelector('#canvas');
+
+    const w = canvasEl.width = window.innerWidth;
+    const h = canvasEl.height = window.innerHeight * 2;
+
+    function loop() {
+        requestAnimationFrame(loop);
+        ctx.clearRect(0, 0, w, h);
+
+        confs.forEach((conf) => {
+            conf.update();
+            conf.draw();
+        })
+    }
+
+    function Confetti() {
+        //construct confetti
+        const colours = ['#fde132', '#009bde', '#ff6b00'];
+
+        this.x = Math.round(Math.random() * w);
+        this.y = Math.round(Math.random() * h) - (h / 2);
+        this.rotation = Math.random() * 360;
+
+        const size = Math.random() * (w / 60);
+        this.size = size < 15 ? 15 : size;
+
+        this.color = colours[Math.floor(colours.length * Math.random())];
+
+        this.speed = this.size / 7;
+
+        this.opacity = Math.random();
+
+        this.shiftDirection = Math.random() > 0.5 ? 1 : -1;
+    }
+
+    Confetti.prototype.border = function () {
+        if (this.y >= h) {
+            this.y = h;
+        }
+    }
+
+    Confetti.prototype.update = function () {
+        this.y += this.speed;
+
+        if (this.y <= h) {
+            this.x += this.shiftDirection / 3;
+            this.rotation += this.shiftDirection * this.speed / 100;
+        }
+
+        if (this.y > h) this.border();
+    };
+
+    Confetti.prototype.draw = function () {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, this.rotation, this.rotation + (Math.PI / 2));
+        ctx.lineTo(this.x, this.y);
+        ctx.closePath();
+        ctx.globalAlpha = this.opacity;
+        ctx.fillStyle = this.color;
+        ctx.fill();
+    };
+
+    const ctx = canvasEl.getContext('2d');
+    const confNum = Math.floor(w / 4);
+    const confs = new Array(confNum).fill().map(_ => new Confetti());
+
+    loop();
+</script>
+
+{% endblock content %}
