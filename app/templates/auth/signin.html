@@ -20,11 +20,9 @@
                <small class="text-info">Inscription reussie veuillez vous connecter</small>
                 {% endif %}
                 {% with errors = get_flashed_messages(category_filter=["error"]) %}
-                {% if errors %}
-                <div>
-                    {% for error in errors %}
-                    {{ error }}<br>
-                    {% endfor %}
+                {% if err %}
+                <div class="text-danger">
+                   {{ err }}
                 </div>
                 {% endif %}
                 {% endwith %}

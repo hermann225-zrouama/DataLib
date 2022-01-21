@@ -1,0 +1,1 @@
+ERROR_CREDENTIALS = "Adresse mail ou mot de passe invalide"

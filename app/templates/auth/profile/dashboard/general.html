@@ -5,14 +5,16 @@
  * Off Canvas sidebar at medium breakpoint
  * --------------------------------------------------
  */
- * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-body {
-    background-color: #f4f4f4
-}
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background-color: #f4f4f4
+    }
+
     @media screen and (max-width: 992px) {
 
         .row-offcanvas {
@@ -93,13 +95,15 @@ body {
     <div class="row mb-3">
         <div class="col-xl-3 col-sm-6 py-2">
             <div class="card bg-success text-white h-100">
-                <div class="card-body bg-success">
-                    <div class="rotate">
-                        <i class="fa fa-book fa-4x"></i>
+                <a style="text-decoration:none;color:white" href="/dashboard/livres">
+                    <div class="card-body bg-success">
+                        <div class="rotate">
+                            <i class="fa fa-book fa-4x"></i>
+                        </div>
+                        <h6 class="text-uppercase">Livres en stock</h6>
+                        <h1 class="display-4">{{infos['nb_book']}}</h1>
                     </div>
-                    <h6 class="text-uppercase">Livres en stock</h6>
-                    <h1 class="display-4">134</h1>
-                </div>
+                </a>
             </div>
         </div>
         <div class="col-xl-3 col-sm-6 py-2">
@@ -109,7 +113,7 @@ body {
                         <i class="fa fa-list fa-4x"></i>
                     </div>
                     <h6 class="text-uppercase">Emprunts en cours</h6>
-                    <h1 class="display-4">87</h1>
+                    <h1 class="display-4">0</h1>
                 </div>
             </div>
         </div>
@@ -120,7 +124,7 @@ body {
                         <i class="fa fa-user fa-4x"></i>
                     </div>
                     <h6 class="text-uppercase">Utilisateurs</h6>
-                    <h1 class="display-4">125</h1>
+                    <h1 class="display-4">{{infos['nb_user']}}</h1>
                 </div>
             </div>
         </div>
@@ -131,7 +135,7 @@ body {
                         <i class="fa fa-share fa-4x"></i>
                     </div>
                     <h6 class="text-uppercase">Demandes de retour</h6>
-                    <h1 class="display-4">5</h1>
+                    <h1 class="display-4">0</h1>
                 </div>
             </div>
         </div>
@@ -140,7 +144,7 @@ body {
 
     <hr>
     <p class="lead mt-5">
-        Informations sur les emprunts en cours ...
+        Emprunts en cours ...
     </p>
     <div class="row my-4">
         <div class="col-lg-12 col-md-8">
@@ -157,18 +161,11 @@ body {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>1</td>
-                            <td>15648</td>
-                            <td>PYTHON POUR LA DATASCIENCE</td>
-                            <td>ZROUAMA FRANCK HERMANN DEBAH</td>
-                            <td>12/02/2021</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>16548</td>
-                            <td>MANAGEMENT DES SYSTÈMES D'INFORMATIONS</td>
-                            <td>KEUPONDJO ARMEL</td> derniers
-                            <td>06/11/2021</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
                         </tr>
                     </tbody>
                 </table>

@@ -20,30 +20,37 @@
                     {% elif 'livres' in request.path%}
                     {% set class_livres = 'active' %}
                     {% endif %}
+
                     <a href="/dashboard" class="nav_link {{class_general}}">
                         <i class='bx bx-grid-alt nav_icon'></i>
                         <span class="nav_name">Général</span>
                     </a>
+
+                    <a href="/dashboard/livres" class="nav_link {{class_livres}}">
+                        <i class='bx bx-book nav_icon'></i>
+                        <span class="nav_name">Livres</span>
+                    </a>
+
                     <a href="#" class="nav_link">
                         <i class='bx bx-bar-chart-alt-2 nav_icon'></i>
                         <span class="nav_name">Statistiques</span>
                     </a>
+
                     <a href="#" class="nav_link">
                         <i class='bx bx-user nav_icon'></i>
                         <span class="nav_name">Utilisateurs</span>
                     </a>
-                    <a href="/dashboard/livres" class="nav_link {{class_livres}}">
-                        <i class='bx bx-message-square-detail nav_icon'></i>
-                        <span class="nav_name">Livres</span>
-                    </a>
+                    
                     <a href="#" class="nav_link">
                         <i class='bx bx-bookmark nav_icon'></i>
                         <span class="nav_name">Retours</span>
                     </a>
+
                     <a href="#" class="nav_link">
                         <i class='bx bx-folder nav_icon'></i>
                         <span class="nav_name">Excell</span>
                     </a>
+
                 </div>
             </div> 
             <a href="/auth/logout" class="nav_link"> 

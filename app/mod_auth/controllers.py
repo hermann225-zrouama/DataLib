@@ -15,6 +15,9 @@ from app.mod_auth.forms import SignupForm
 # Import module models (i.e. User)
 from app.mod_auth.models import User
 
+#import const
+from app.constants.error import ERROR_CREDENTIALS
+
 # Define the blueprint: 'auth', set its url prefix: app.url/auth
 mod_auth = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -37,15 +40,15 @@ def signin():
                 'nom':user.nom,
                 'matricule':user.matricule,
                 'email':user.email,
-                'role':user.role
+                'role':user.role,
+                'id':user.id
                 }
 
             flash('Welcome %s' % user.nom)
 
             return redirect(url_for('data_lib.index'))
-
-        flash('Wrong email or password', 'error-message')
-
+        user = []
+        return render_template("auth/signin.html", form=form,user=user,err = ERROR_CREDENTIALS)
     return render_template("auth/signin.html", form=form,user=user)
 
 

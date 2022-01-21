@@ -37,7 +37,7 @@
                 <div class="navbar-nav">
 
                     {% if user %}
-                        {% if user.role == 0 %}
+                        {% if user.role == 1 %}
                             <a href="/dashboard"><button class="btn btn-danger">Panneau de control</button></a>
                         {% endif %}
                     <a class="nav-item nav-link" href="/{{user.nom}}"><img src="/icons/profile.png" alt="">

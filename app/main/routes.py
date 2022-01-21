@@ -2,10 +2,14 @@
 from flask import Blueprint, request, render_template, \
                   flash, g, session, redirect, url_for
 
+from app.mod_book.models import Book
+
 # Define the blueprint: 'auth', set its url prefix: app.url/
 main = Blueprint('data_lib', __name__, url_prefix='/')
 
 from app.mod_book.controllers import fetch_last_book
+from app.mod_book.controllers import fetch_all_book
+from app.mod_book.controllers import general_info
 
 # Set the route and accepted methods
 @main.route('')
@@ -35,16 +39,25 @@ def dash_redirect():
 
 @main.route('/dashboard/general')
 def dash_general():
+    info = []
     if not('user'in session):
        return redirect(url_for('auth.signin'))
     else:
-        return render_template("auth/profile/dashboard/general.html",user=session["user"])
+        info = general_info()
+        return render_template("auth/profile/dashboard/general.html",user=session["user"],infos=info)
         
 @main.route('/dashboard/livres')
 def dash_livres():
+    books = None
     if not('user'in session):
        return redirect(url_for('auth.signin'))
     else:
-        return render_template("auth/profile/dashboard/livres.html",user=session["user"])
+        all_books = fetch_all_book()
+        if (all_books):
+            books = all_books
+            return render_template("auth/profile/dashboard/livres.html",user=session["user"],books=books)
+        else:
+            return render_template("auth/profile/dashboard/livres.html",user=session["user"],books=books)
+        
     
 

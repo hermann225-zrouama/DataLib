@@ -33,13 +33,12 @@ class Book(Base):
     year = db.Column(db.Integer,  nullable=False)
 
     # New instance instantiation procedure
-    def __init__(self, title, author, edition,isbn,nbExemplar,available,category,year):
+    def __init__(self, title, author, edition,isbn,nbExemplar,category,year):
         self.title = title
         self.author = author
         self.edition = edition
         self.isbn = isbn
         self.nbExemplar = nbExemplar
-        self.available = available
         self.category = category
         self.year = year
 
