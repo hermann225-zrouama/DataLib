@@ -35,13 +35,12 @@ def signin():
 
         if user and check_password_hash(user.password, form.password.data):
 
-            session['user_id'] = user.id
+            session['user_id'] = user.matricule
             session['user'] = {
                 'nom':user.nom,
                 'matricule':user.matricule,
                 'email':user.email,
                 'role':user.role,
-                'id':user.id
                 }
 
             flash('Welcome %s' % user.nom)
@@ -55,7 +54,7 @@ def signin():
 
 @mod_auth.route('/signup', methods=['GET', 'POST'])
 def signup():
-
+    
     # If sign in form is submitted
     form = SignupForm(request.form)
 
@@ -80,3 +79,10 @@ def logout():
     session.pop('user_id', None)
     
     return redirect(url_for('auth.signin'))
+
+############################################################
+def getUserById(matricule):
+    return User.query.filter_by(matricule=matricule).first()
+
+def getAllUser():
+    return User.query.all()

@@ -3,6 +3,8 @@ from flask import Blueprint, request, render_template, \
                   flash, g, session, redirect, url_for
 
 from app.mod_book.models import Book
+import datetime
+
 
 # Define the blueprint: 'auth', set its url prefix: app.url/
 main = Blueprint('data_lib', __name__, url_prefix='/')
@@ -10,6 +12,8 @@ main = Blueprint('data_lib', __name__, url_prefix='/')
 from app.mod_book.controllers import fetch_last_book
 from app.mod_book.controllers import fetch_all_book
 from app.mod_book.controllers import general_info
+from app.mod_auth.controllers import getAllUser
+from app.mod_book.controllers import getAllBook
 
 # Set the route and accepted methods
 @main.route('')
@@ -58,6 +62,16 @@ def dash_livres():
             return render_template("auth/profile/dashboard/livres.html",user=session["user"],books=books)
         else:
             return render_template("auth/profile/dashboard/livres.html",user=session["user"],books=books)
+
+@main.route('/dashboard/emprunts',methods=['GET','POST'])
+def dash_emprunts():
+    emprunts = None
+    if not('user' in session):
+        return redirect(url_for('auth.signin'))
+    else:
+        all_user = getAllUser()
+        all_book = getAllBook()
+        return render_template("auth/profile/dashboard/emprunts.html",all_book = all_book,all_user = all_user,user=session["user"],empruntEnCours = emprunts)
         
     
 

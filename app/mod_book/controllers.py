@@ -22,7 +22,7 @@ mod_book = Blueprint('book', __name__, url_prefix='/book')
 @mod_book.route('/last', methods=['GET'])
 def fetch_last_book():
         """ return last six books from database"""
-        books = Book.query.order_by(Book.id.desc()).limit(6).all()
+        books = Book.query.order_by(Book.isbn.desc()).limit(6).all()
         
         if books:
             return books 
@@ -34,7 +34,7 @@ def fetch_last_book():
 @mod_book.route('/', methods=['GET'])
 def fetch_all_book():
     """Return all book from database in desc order"""
-    books = Book.query.order_by(Book.id.desc()).all()
+    books = Book.query.order_by(Book.isbn.desc()).all()
     if books:
         session['books'] = books
         return books 
@@ -47,7 +47,7 @@ def register_book():
     """Register a new book"""
     form = request.form
     if request.method == 'POST':
-        book = Book(form['titre'],form['auteur'],form['edition'],form['isbn'],form['nbexemplar'],form['category'],form['year'])
+        book = Book(form['titre'].strip(),form['auteur'],form['edition'],form['isbn'].strip(),form['nbexemplar'],form['category'],form['year'])
 
         try:
             db.session.add(book)
@@ -64,12 +64,12 @@ def register_book():
 
 
 
-@mod_book.route('/update/<int:id>', methods=['GET'])
-def update_book(id):
-    book = Book.query.filter_by(id=id).first()
+@mod_book.route('/update/<int:isbn>', methods=['GET'])
+def update_book(isbn):
+    book = Book.query.filter_by(isbn=isbn).first()
     if book:
         user = session['user']
-        session['book_update_id'] = id
+        session['book_update_isbn'] = isbn
         return render_template("auth/profile/dashboard/update_book.html", book = book,user=user)
     else:
         return redirect(url_for("data_lib.dash_livres"))
@@ -78,10 +78,10 @@ def update_book(id):
 def update():
     form = request.form
     if request.method == 'POST':
-        book = Book.query.filter_by(id=session['book_update_id']).first()
+        book = Book.query.filter_by(isbn=session['book_update_isbn']).first()
 
-        book.title = form['titre']
-        book.isbn = form['isbn']
+        book.title = form['titre'].strip()
+        book.isbn = form['isbn'].strip()
         book.author = form['auteurs']
         book.edition = form['edition']
         book.nbExemplar = form['nbExemplar']
@@ -91,25 +91,25 @@ def update():
         db.session.commit()
         return redirect(url_for('data_lib.dash_livres'))
         
-@mod_book.route('/delete/<int:id>', methods=['GET','POST'])  
-def delete_book(id):
+@mod_book.route('/delete/<int:isbn>', methods=['GET','POST'])  
+def delete_book(isbn):
     """
     Goal : Delete a book
 
     Method : GET 
 
-    Args: (id) of the book to delete
+    Args: (isbn) of the book to delete
     """
 
-    book = Book.query.filter_by(id=id).first()
+    book = Book.query.filter_by(isbn=isbn).first()
     db.session.delete(book)
     db.session.commit()
     return redirect(url_for('data_lib.dash_livres'))
 
-@mod_book.route('/<int:id>',methods =['GET'])
-def get_book_by_id(id):
-    #get book by id
-    book = Book.query.filter_by(id=id).first()
+@mod_book.route('/<int:isbn>',methods =['GET'])
+def get_book_by_isbn(isbn):
+    #get book by isbn
+    book = Book.query.filter_by(isbn=isbn).first()
     if 'user' in session:
         user = session['user']
     else:
@@ -126,3 +126,9 @@ def general_info():
     nb_book = Book.query.count()
     nb_user = User.query.count()
     return {'nb_book':nb_book,'nb_user':nb_user}
+
+def getBookInfo(isbn):
+    return Book.query.filter_by(isbn=isbn.strip()).first()
+
+def getAllBook():
+    return Book.query.all()
