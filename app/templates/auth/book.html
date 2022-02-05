@@ -87,8 +87,8 @@
 </style>
 
 <div class="container d-flex justify-content-center mt-5 mb-5">
-    <div class="row g-3">
-        <div class="col-md-6"> <span>Emprunt</span>
+    <form action="/dashboard/emprunts" method="post" class="row g-3">
+        <div class="col-md-6">
             <div class="card">
                 <div class="accordion" id="accordionExample">
                     <div class="card">
@@ -108,8 +108,8 @@
                                 <span class="font-weight-normal card-text">Code d'emprunt</span>
                                 <div class="input">
                                     <i class="fa fa-credit-card"></i>
-                                    <input disabled value="#009bde" type="text" class="form-control"
-                                        placeholder="0000 0000 0000 0000">
+                                    <input readonly value="{{code}}" type="text" name="code" class="form-control"
+                                    >
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-md-6">
@@ -118,7 +118,7 @@
                                         </span>
                                         <div class="input">
                                             <i class="fa fa-calendar"></i>
-                                            <input type="date" class="form-control">
+                                            <input required name="dateE" type="date" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -127,22 +127,21 @@
                                         </span>
                                         <div class="input">
                                             <i class="fa fa-calendar"></i>
-                                            <input type="date" class="form-control">
+                                            <input required name="dateR" type="date" class="form-control">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="p-3">
-                                <button class="btn btn-primary btn-block free-button">Confirmer <i
-                                        class="fa fa-ok"></i></button>
-                            </div>
+                            <input type="hidden" value="{{user.matricule}}" name="matricule">
+                            <input type="hidden" name="isbn" value="{{book_info.isbn}}">
+                           
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         
-        <div class="col-md-6"> <span>Résumé</span>
+        <div class="col-md-6">
             <div class="card">
                 <div class="d-flex justify-content-between p-3">
                     <div class="d-flex flex-column">
@@ -165,11 +164,11 @@
                     <div class="d-flex flex-column"> <span>Pénalité journalière</span> <small>applicable en cas
                             de non retour dans le délai impartis</small> </div> <span>100 FrCfa</span>
                 </div>
-                <div class="p-3"> <button class="btn btn-primary btn-block free-button">Je réserve mon Livre</button>
+                <div class="p-3"> <button type="submit" class="btn btn-primary btn-block free-button">Je réserve mon Livre</button>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 </div>
 {% endblock content %}

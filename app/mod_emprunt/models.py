@@ -26,12 +26,12 @@ class Emprunt(Base):
     
 
     # New instance instantiation procedure
-    def __init__(self, code, user_mat,book, date_emprunt, date_retour):
-        self.code = code
-        self.user_mat = user_mat
-        self.date_emprunt = date_emprunt
-        self.date_retour = date_retour
-        self.book = book
+    def __init__(self, **kwargs):
+        self.code = kwargs['code']
+        self.user = kwargs['user_mat']
+        self.date_emprunt = kwargs['date_emprunt']
+        self.date_retour = kwargs['date_retour']
+        self.book = kwargs['book']
 
     def __repr__(self):
         return '<Emprunt %r>' % (self.code)

@@ -3,7 +3,6 @@ from flask import Flask, render_template
 
 # Import SQLAlchemy
 from flask_sqlalchemy import SQLAlchemy
-
 # Define the WSGI application object
 app = Flask(__name__,static_url_path='',static_folder='static')
 

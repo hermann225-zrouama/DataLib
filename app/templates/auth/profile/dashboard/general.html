@@ -114,7 +114,7 @@
                             <i class="fa fa-list fa-4x"></i>
                         </div>
                         <h6 class="text-uppercase">Emprunts en cours</h6>
-                        <h1 class="display-4">0</h1>
+                        <h1 class="display-4">{{infos['nb_emprunt']}}</h1>
                     </div>
                 </a>
             </div>
@@ -158,17 +158,23 @@
                             <th>ISBN</th>
                             <th>Titre</th>
                             <th>Nom</th>
+                            <th>Matricule</th>
+                            <th>Date de retour</th>
                             <th>Date d'emprunt</th>
                         </tr>
                     </thead>
                     <tbody>
+                        {% for code,info in emprunts.items() %}
                         <tr>
-                            <td>-</td>
-                            <td>-</td>
-                            <td>-</td>
-                            <td>-</td>
-                            <td>-</td>
+                            <td>{{code}}</td>
+                            <td>{{info['isbn']}}</td>
+                            <td>{{info['book'].title}}</td>
+                            <td>{{info['user'].nom}}</td>
+                            <td>{{info['user'].matricule}}</td>
+                            <td>{{info['date_retour']}}</td>
+                            <td>{{info['date_emprunt']}}</td>
                         </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>

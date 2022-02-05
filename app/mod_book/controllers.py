@@ -1,4 +1,5 @@
 # Import flask dependencies
+import datetime
 from flask import Blueprint, request, render_template, \
                   flash, g, session, redirect, url_for,jsonify
 
@@ -14,6 +15,7 @@ from app import db
 # Import module models (i.e. User)
 from app.mod_book.models import Book
 from app.mod_auth.models import User
+
 
 # Define the blueprint: 'auth', set its url prefix: app.url/auth
 mod_book = Blueprint('book', __name__, url_prefix='/book')
@@ -64,7 +66,7 @@ def register_book():
 
 
 
-@mod_book.route('/update/<int:isbn>', methods=['GET'])
+@mod_book.route('/update/<isbn>', methods=['GET'])
 def update_book(isbn):
     book = Book.query.filter_by(isbn=isbn).first()
     if book:
@@ -91,7 +93,7 @@ def update():
         db.session.commit()
         return redirect(url_for('data_lib.dash_livres'))
         
-@mod_book.route('/delete/<int:isbn>', methods=['GET','POST'])  
+@mod_book.route('/delete/<isbn>', methods=['GET','POST'])  
 def delete_book(isbn):
     """
     Goal : Delete a book
@@ -106,15 +108,16 @@ def delete_book(isbn):
     db.session.commit()
     return redirect(url_for('data_lib.dash_livres'))
 
-@mod_book.route('/<int:isbn>',methods =['GET'])
+@mod_book.route('/<isbn>',methods =['GET'])
 def get_book_by_isbn(isbn):
     #get book by isbn
     book = Book.query.filter_by(isbn=isbn).first()
     if 'user' in session:
         user = session['user']
+        code = f"LIB{datetime.datetime.now().strftime('%d%M%S')}"
     else:
         user = []
-    return render_template("auth/book.html",book_info = book,user = user)
+    return render_template("auth/book.html",book_info = book,user = user,code = code)
 
 ######FONCTION PERSO###############
 def general_info():

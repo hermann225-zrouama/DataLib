@@ -4,9 +4,7 @@ body {
     margin-top: 5rem;
     padding-bottom: 50px;
 }
-.PageContent {
-    margin-top: 100px;
-}
+
 .formsWidth {
     max-width: 500px;
 }
@@ -47,7 +45,7 @@ body {
     padding: 20px;
 }
 .pageContent {
-    margin-top: 100px;
+    margin-top: 52px;
 }
 .searchForm {
     margin-left: 10px;
