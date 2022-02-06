@@ -115,9 +115,10 @@ def get_book_by_isbn(isbn):
     if 'user' in session:
         user = session['user']
         code = f"LIB{datetime.datetime.now().strftime('%d%M%S')}"
+        return render_template("auth/book.html",book_info = book,user = user,code = code)
     else:
-        user = []
-    return render_template("auth/book.html",book_info = book,user = user,code = code)
+       return redirect(url_for('auth.signin'))
+    
 
 ######FONCTION PERSO###############
 def general_info():

@@ -1,0 +1,214 @@
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap" rel="stylesheet">
+</head>
+<style>
+    body {
+        text-align: center;
+        padding: 40px 0;
+        background: #EBF0F5;
+    }
+
+    .h1 {
+        color: #88B04B;
+        font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+        font-weight: 900;
+        font-size: 40px;
+        margin-bottom: 10px;
+    }
+
+    .h2 {
+        color: #b04b4b;
+        font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+        font-weight: 900;
+        font-size: 40px;
+        margin-bottom: 10px;
+    }
+
+    p {
+        color: #404F5E;
+        font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+        font-size: 20px;
+        margin: 0;
+    }
+
+    .checkmark1 {
+        color: #f75a4ec6;
+        font-size: 100px;
+        line-height: 200px;
+        margin-left: -15px;
+    }
+
+    .checkmark {
+        color: #9ABC66;
+        font-size: 100px;
+        line-height: 200px;
+        margin-left: -15px;
+    }
+
+    .card {
+        background: white;
+        padding: 60px;
+        border-radius: 4px;
+        box-shadow: 0 2px 3px #C8D0D8;
+        display: inline-block;
+        margin: 0 auto;
+    }
+</style>
+
+<body>
+    <div class="card">
+
+        {% if erreur %}
+
+        <h1 class="h2"> {{erreur}}</h1>
+        {% else %}
+        <div class="row">
+            <div class="col-md-4">
+                <div style="border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto;">
+                    <i class="checkmark">✓</i>
+                </div>
+                <h1 class="h1">Emprunt enregistré avec succès</h1>
+            </div>
+
+            <div class="col-md-8">
+                <div class="col-md-6">
+                    <div id="body">
+                        <header id="header">
+                            <h1>Ticket d'emprunt</h1>
+                            <address>
+                                <p>{{empruntEnCours["user"].matricule}}</p>
+                                <p>{{empruntEnCours["user"].nom}}<br>{{empruntEnCours["user"].email}}</p>
+                            </address>
+                        </header id="header">
+                        <article>
+                            <address>
+                                <h3>{{empruntEnCours["livre"].title}}</h3>
+                                <hr>{{empruntEnCours["livre"].category}}
+                            </address>
+                            <table class="meta">
+                                <tr>
+                                    <th><span>Emprunt #</span></th>
+                                    <td><span>{{empruntEnCours["code"]}}</span></td>
+                                </tr>
+                                <tr>
+                                    <th><span>Date d'emprunt</span></th>
+                                    <td><span>{{empruntEnCours["date_emprunt"]}}</span></td>
+                                </tr>
+                                <tr>
+                                    <th><span>Date de retour</span></th>
+                                    <td><span>{{empruntEnCours["date_retour"]}}</span></td>
+                                </tr>
+                            </table>
+
+                        </article>
+                        <aside>
+                            <h1><span>INTERNATIONAL DATA SCIENCE INSTITUTE</span></h1>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% endif %}
+        <p>Cliquer pour etre redirigé<br />
+            <button class="btn bg-steel">
+                {% if user.role == 1 %}
+                <a style="text-decoration: none; color: black;"
+                    href="{{ url_for('data_lib.dash_redirect') }}">Redirection</a>
+                {% else %}
+                <a style="text-decoration: none; color: black;" href="{{ url_for('data_lib.index') }}">Redirection</a>
+                {% endif %}
+            </button>
+        </p>
+    </div>
+</body>
+
+</html>
+<style>
+    /* reset */
+
+
+    /* content editable */
+
+    *[contenteditable] {
+        border-radius: 0.25em;
+        min-width: 1em;
+        outline: 0;
+    }
+
+    *[contenteditable] {
+        cursor: pointer;
+    }
+
+    *[contenteditable]:hover,
+    *[contenteditable]:focus,
+    td:hover *[contenteditable],
+    td:focus *[contenteditable],
+    img.hover {
+        background: #DEF;
+        box-shadow: 0 0 1em 0.5em #DEF;
+    }
+
+    span[contenteditable] {
+        display: inline-block;
+    }
+
+    /* heading */
+
+    h1 {
+        font: bold 100% sans-serif;
+        letter-spacing: 0.5em;
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    /* table */
+
+    table {
+        font-size: 75%;
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    table {
+        border-collapse: separate;
+        border-spacing: 2px;
+    }
+
+    th,
+    td {
+        border-width: 1px;
+        padding: 0.5em;
+        position: relative;
+        text-align: left;
+    }
+
+    th,
+    td {
+        border-radius: 0.25em;
+        border-style: solid;
+    }
+
+    th {
+        background: #EEE;
+        border-color: #BBB;
+    }
+
+    td {
+        border-color: #DDD;
+    }
+
+    /* page */
+
+    html {
+        font: 16px/1 'Open Sans', sans-serif;
+        overflow: auto;
+        padding: 0.5in;
+    }
+</style>
+{% endblock content %}

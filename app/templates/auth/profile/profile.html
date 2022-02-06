@@ -2,246 +2,253 @@
 {% block content %}
 
 <style>
-    @import url("https://fonts.googleapis.com/css?family=Montserrat:400,400i,700");
+  @import url("https://fonts.googleapis.com/css?family=Montserrat:400,400i,700");
 
-.card {
-  background-color: #fff;
-  max-width: 360px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  border-radius: 2rem;
-}
-.card .banner {
-  background-image: url("images/banner_background.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 11rem;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  box-sizing: border-box;
-}
-.card .banner img {
-  background-color: #fff;
-  width: 8rem;
-  height: 8rem;
-  box-shadow: 0 0.5rem 0.2rem rgba(0,0,0,0.3);
-  border-radius: 50%;
-  transform: translateY(50%);
-  transition: transform 200ms cubic-bezier(0.18, 0.89, 0.32, 1.28);
-}
-.card .banner img:hover {
-  transform: translateY(50%) scale(1.3);
-}
-.card .menu {
-  width: 100%;
-  height: 5.5rem;
-  padding: 1rem;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-end;
-  position: relative;
-  box-sizing: border-box;
-}
-.card .menu .opener {
-  width: 2.5rem;
-  height: 2.5rem;
-  position: relative;
-  border-radius: 50%;
-  transition: background-color 100ms ease-in-out;
-}
-.card .menu .opener:hover {
-  background-color: #f2f2f2;
-}
-.card .menu .opener span {
-  background-color: #404040;
-  width: 0.4rem;
-  height: 0.4rem;
-  position: absolute;
-  top: 0;
-  left: calc(50% - 0.2rem);
-  border-radius: 50%;
-}
-.card .menu .opener span:nth-child(1) {
-  top: 0.45rem;
-}
-.card .menu .opener span:nth-child(2) {
-  top: 1.05rem;
-}
-.card .menu .opener span:nth-child(3) {
-  top: 1.65rem;
-}
-.card h2.name {
-  text-align: center;
-  padding: 0 2rem 0.5rem;
-  margin: 0;
-}
-.card .title {
-  color: #a0a0a0;
-  font-size: 0.85rem;
-  text-align: center;
-  padding: 0 2rem 1.2rem;
-}
-.card .actions {
-  padding: 0 2rem 1.2rem;
-  display: flex;
-  flex-direction: column;
-  order: 99;
-}
-.card .actions .follow-info {
-  padding: 0 0 1rem;
-  display: flex;
-}
-.card .actions .follow-info h2 {
-  text-align: center;
-  width: 50%;
-  margin: 0;
-  box-sizing: border-box;
-}
-.card .actions .follow-info h2 a {
-  text-decoration: none;
-  padding: 0.8rem;
-  display: flex;
-  flex-direction: column;
-  border-radius: 0.8rem;
-  transition: background-color 100ms ease-in-out;
-}
-.card .actions .follow-info h2 a span {
-  color: #1c9eff;
-  font-weight: bold;
-  transform-origin: bottom;
-  transform: scaleY(1.3);
-  transition: color 100ms ease-in-out;
-}
-.card .actions .follow-info h2 a small {
-  color: #afafaf;
-  font-size: 0.85rem;
-  font-weight: normal;
-}
-.card .actions .follow-info h2 a:hover {
-  background-color: #f2f2f2;
-}
-.card .actions .follow-info h2 a:hover span {
-  color: #007ad6;
-}
-.card .actions .follow-btn button {
-  color: inherit;
-  font: inherit;
-  font-weight: bold;
-  background-color: #ffd01a;
-  width: 100%;
-  border: none;
-  padding: 1rem;
-  outline: none;
-  box-sizing: border-box;
-  border-radius: 1.5rem/50%;
-  transition: background-color 100ms ease-in-out, transform 200ms cubic-bezier(0.18, 0.89, 0.32, 1.28);
-}
-.card .actions .follow-btn button:hover {
-  background-color: #efb10a;
-  transform: scale(1.1);
-}
-.card .actions .follow-btn button:active {
-  background-color: #e8a200;
-  transform: scale(1);
-}
-.card .desc {
-  text-align: justify;
-  padding: 0 2rem 2.5rem;
-  order: 100;
-}
+  .card {
+    background-color: #fff;
+    max-width: 360px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 2rem;
+  }
 
+  .card .banner {
+    background-image: url("images/banner_background.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 11rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  .card .banner img {
+    background-color: #fff;
+    width: 8rem;
+    height: 8rem;
+    box-shadow: 0 0.5rem 0.2rem rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    transform: translateY(50%);
+    transition: transform 200ms cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  }
+
+  .card .banner img:hover {
+    transform: translateY(50%) scale(1.3);
+  }
+
+  .card .menu {
+    width: 100%;
+    height: 5.5rem;
+    padding: 1rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    position: relative;
+    box-sizing: border-box;
+  }
+
+  .card .menu .opener {
+    width: 2.5rem;
+    height: 2.5rem;
+    position: relative;
+    border-radius: 50%;
+    transition: background-color 100ms ease-in-out;
+  }
+
+  .card .menu .opener:hover {
+    background-color: #f2f2f2;
+  }
+
+  .card .menu .opener span {
+    background-color: #404040;
+    width: 0.4rem;
+    height: 0.4rem;
+    position: absolute;
+    top: 0;
+    left: calc(50% - 0.2rem);
+    border-radius: 50%;
+  }
+
+  .card .menu .opener span:nth-child(1) {
+    top: 0.45rem;
+  }
+
+  .card .menu .opener span:nth-child(2) {
+    top: 1.05rem;
+  }
+
+  .card .menu .opener span:nth-child(3) {
+    top: 1.65rem;
+  }
+
+  .card h2.name {
+    text-align: center;
+    padding: 0 2rem 0.5rem;
+    margin: 0;
+  }
+
+  .card .title {
+    color: #a0a0a0;
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 0 2rem 1.2rem;
+  }
+
+  .card .actions {
+    padding: 0 2rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    order: 99;
+  }
+
+  .card .actions .follow-info {
+    padding: 0 0 1rem;
+    display: flex;
+  }
+
+  .card .actions .follow-info h2 {
+    text-align: center;
+    width: 50%;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  .card .actions .follow-info h2 a {
+    text-decoration: none;
+    padding: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.8rem;
+    transition: background-color 100ms ease-in-out;
+  }
+
+  .card .actions .follow-info h2 a span {
+    color: #1c9eff;
+    font-weight: bold;
+    transform-origin: bottom;
+    transform: scaleY(1.3);
+    transition: color 100ms ease-in-out;
+  }
+
+  .card .actions .follow-info h2 a small {
+    color: #afafaf;
+    font-size: 0.85rem;
+    font-weight: normal;
+  }
+
+  .card .actions .follow-info h2 a:hover {
+    background-color: #f2f2f2;
+  }
+
+  .card .actions .follow-info h2 a:hover span {
+    color: #007ad6;
+  }
+
+  .card .actions .follow-btn button {
+    color: inherit;
+    font: inherit;
+    font-weight: bold;
+    background-color: #ffd01a;
+    width: 100%;
+    border: none;
+    padding: 1rem;
+    outline: none;
+    box-sizing: border-box;
+    border-radius: 1.5rem/50%;
+    transition: background-color 100ms ease-in-out, transform 200ms cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  }
+
+  .card .actions .follow-btn button:hover {
+    background-color: #efb10a;
+    transform: scale(1.1);
+  }
+
+  .card .actions .follow-btn button:active {
+    background-color: #e8a200;
+    transform: scale(1);
+  }
+
+  .card .desc {
+    text-align: justify;
+    padding: 0 2rem 2.5rem;
+    order: 100;
+  }
+
+  .content{
+    margin-top: 2%;
+  }
 </style>
 
 <div class="content">
-    <link rel="stylesheet" href="/css/profile.css">
-    <div class="container">
-        <!-- end row -->
-        <div class="row">
-            <div class="col-xl-4">
-                <!-- Personal-Information -->
-                <div class="card">
-                    <div class="banner">
-                       <img src="https://ui-avatars.com/api/?name={{user.nom}}" alt="">
-                    </div>
-                    <div class="menu">
-                        <div class="opener"><span></span><span></span><span></span></div>
-                    </div>
-                    <h2 class="name">{{user.nom}}</h2>
-                    <div class="title">Master 1</div>
-                    <div class="actions">
-                        <div class="follow-info">
-                            <h2><a href="#emprunts"><span>2</span><small>Emprunts en cours</small></a></h2>
-                            <h2><a href="#"><span>15</span><small>Total</small></a></h2>
-                        </div>
-                    </div>
-                </div>
-                <!-- Personal-Information -->
-
-                
+  <link rel="stylesheet" href="/css/profile.css">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-4">
+        <div class="card">
+          <div class="banner">
+            <img src="https://ui-avatars.com/api/?name={{user.nom}}" alt="">
+          </div>
+          <div class="menu">
+            <div class="opener"><span></span><span></span><span></span></div>
+          </div>
+          <h2 class="name">{{user.nom}}</h2>
+          <div class="title">Master 1</div>
+          <div class="actions">
+            <div class="follow-info d-flex justify-content-center align-items-center">
+              <h2><a href="#emprunts"><span>{{emprunts["taille"]}}</span><small>Emprunts en cours</small></a></h2>
             </div>
-            <div class="col-xl-7">
-                <!-- end row -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card-box">
-                            <h4 class="header-title mb-3">Historique des emprunts</h4>
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Titre</th>
-                                            <th>Date d'emprunt</th>
-                                            <th>Date de depot</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Adminox Admin</td>
-                                            <td>01/01/2015</td>
-                                            <td>07/05/2015</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <div class="card-box ribbon-box">
-                            <div class="ribbon bg-steel" id="emprunts">Emprunts en cours</div>
-                            <div class="clearfix"></div>
-                            <div class="inbox-widget">
-                                <a href="#">
-                                    <div class="inbox-item">
-                                        <div class="inbox-item-img"><img
-                                                src="https://www.freepnglogos.com/uploads/notebook-png/diary-note-book-spiral-notebook-icon-20.png"
-                                                alt="">
-                                        </div>
-                                        <p class="inbox-item-author">Python pour les nuls</p>
-                                        <p class="inbox-item-date">
-                                            <button type="button"
-                                                class="btn btn-icon btn-sm waves-effect waves-light btn-dark">Retourner</button>
-                                        </p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                
-
-            </div>
-            <!-- end col -->
+          </div>
         </div>
-        <!-- end row -->
+      </div>
+      <div class="col-xl-7">
+        <div class="row">
+          <div class="col-12">
+            <div class="card-box ribbon-box">
+              <div class="ribbon bg-steel" id="emprunts">Emprunts en cours</div>
+              <div class="clearfix"></div>
+              <div class="inbox-widget">
+                {% for emprunt in emprunts["e"] %}
+                <div class="inbox-item">
+                  <div class="inbox-item-img"><img
+                      src="https://www.freepnglogos.com/uploads/notebook-png/diary-note-book-spiral-notebook-icon-20.png"
+                      alt="">
+                  </div>
+                  <p class="inbox-item-author">{{emprunt["book"]}}</p>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-12">
+            <canvas id="graph" width="400" height="200">
+            </canvas>
+          </div>
+        </div>
+      </div>
     </div>
-    <!-- container -->
+  </div>
 </div>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js" integrity="sha512-TW5s0IT/IppJtu76UbysrBH9Hy/5X41OTAbQuffZFU6lQ1rdcLHzpU5BzVvr/YFykoiMYZVWlr/PX1mDcfM9Qg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+  var ctx = document.getElementById('graph').getContext('2d');
+  var lineChart = new Chart(ctx,{
+    type : 'bar',
+    data : {
+      labels : ["{% for item in emprunts['e'] %}{{item['date']}},{% endfor %}".split(","),],
+      datasets : [
+        {
+          label: "Data point",
+          backgroundColor: 'rgb(255, 99, 132)',
+          borderColor: 'rgb(255, 99, 132)',
+          data:["{% for item in emprunts['e'] %}'{{item['date']}}',{% endfor %}"]
+          
+        }
+      ]
+    }
+  })
+</script>
 {% endblock content %}

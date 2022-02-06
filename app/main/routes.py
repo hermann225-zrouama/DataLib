@@ -15,6 +15,7 @@ from app import db
 from app.mod_emprunt.models import Emprunt
 from app.mod_auth.controllers import getUserById
 from app.mod_book.controllers import getBookInfo
+from app.mod_emprunt.controllers import fetch_emprunt
 
 
 # Define the blueprint: 'auth', set its url prefix: app.url/
@@ -41,7 +42,8 @@ def profile(nom):
         return redirect(url_for('auth.signin'))
     else:
         if (nom == session['user']['nom']):
-            return render_template("auth/profile/profile.html", user=session["user"])
+            emprunts_en_cours = fetch_emprunt(session['user']['matricule'])
+            return render_template("auth/profile/profile.html", user=session["user"],emprunts=emprunts_en_cours)
         else:
             return '404'
 
@@ -96,28 +98,42 @@ def dash_emprunts():
         emprunts = None
         form = request.form
        
-        verif = Emprunt.query.filter_by(user=form['matricule'], book=form['isbn'],code=form['code']).first()
-        if not(verif):
-            user_concerned = getUserById(form['matricule'])
-            book_concerned = getBookInfo(form['isbn'])
+        verif1 = Emprunt.query.filter_by(user=form['matricule'], book=form['isbn'],statut = 1).first()
+        verif2 = Emprunt.query.filter_by(user=form['matricule'],statut = 1).all()
+        print(verif2)
+        if (verif1 == None):
+            if len(verif2) < 3:
+                user_concerned = getUserById(form['matricule'])
+                book_concerned = getBookInfo(form['isbn'])
 
-            emprunts = {
-                "date_emprunt": form['dateE'],
-                "date_retour": form['dateR'],
-                "user": user_concerned,
-                "livre": book_concerned,
-                "heure": datetime.datetime.now(),
-                "code": form['code']
-            }
+                emprunts = {
+                    "date_emprunt": form['dateE'],
+                    "date_retour": form['dateR'],
+                    "user": user_concerned,
+                    "livre": book_concerned,
+                    "heure": datetime.datetime.now(),
+                    "code": form['code']
+                }
 
-            emprunt = Emprunt(code=form['code'],
+                emprunt = Emprunt(code=form['code'],
                                 user_mat=form['matricule'],
                                 book=form['isbn'],
                                 date_emprunt = form['dateE'],
                                 date_retour = form['dateR'])
-
-            db.session.add(emprunt)
-            db.session.commit()
-            return render_template("auth/profile/dashboard/emprunts.html", user=session["user"], empruntEnCours=emprunts)
+                db.session.add(emprunt)
+                db.session.commit()
+                return render_template("success.html", user=session["user"], empruntEnCours=emprunts)
+            else:
+                return render_template("success.html", user=session["user"], empruntEnCours=emprunts,erreur="Nombre d'emprunt max atteint")
         else:
-            return redirect(url_for('data_lib.index'))
+            code = f"LIB{datetime.datetime.now().strftime('%d%M%S')}"
+            emprunts = None
+            if not('user' in session):
+                return redirect(url_for('auth.signin'))
+            else:
+                all_user = getAllUser()
+                all_book = getAllBook()
+                if session['user']["role"] ==1:
+                    return render_template("success.html", user=session["user"], empruntEnCours=emprunts,erreur="Livre déja emprunté")
+                else:
+                    return render_template("success.html", user=session["user"], empruntEnCours=emprunts,erreur="Vous avez déja emprunté ce livre et il n'a pas encore été rendu")

@@ -1,5 +1,6 @@
 # Import the database object (db) from the main application module
 # We will define this inside /app/__init__.py in the next sections.
+from email.policy import default
 from app import db
 from dataclasses import dataclass
 
@@ -23,6 +24,7 @@ class Emprunt(Base):
     book = db.Column(db.String(128),  nullable=False,primary_key=True)
     date_emprunt = db.Column(db.String(128),  nullable=False)
     date_retour = db.Column(db.String(128),  nullable=False)
+    statut = db.Column(db.SmallInteger, nullable=False,default=1)
     
 
     # New instance instantiation procedure
