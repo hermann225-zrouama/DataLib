@@ -43,7 +43,7 @@ def profile(nom):
     else:
         if (nom == session['user']['nom']):
             emprunts_en_cours = fetch_emprunt(session['user']['matricule'])
-            return render_template("auth/profile/profile.html", user=session["user"],emprunts=emprunts_en_cours)
+            return render_template("auth/profile/profile.html", user=session["user"], emprunts=emprunts_en_cours)
         else:
             return '404'
 
@@ -60,13 +60,14 @@ def dash_general():
         return redirect(url_for('auth.signin'))
     else:
         info = general_info()
-        info["nb_emprunt"] = Emprunt.query.count()
-        #fetch all emprunt
-        emprunts = Emprunt.query.all()
+        info["nb_emprunt"] = Emprunt.query.filter_by(statut = 1).count()
+        # fetch all emprunt
+        emprunts = Emprunt.query.filter_by(statut = 1).all()
         emp = {}
         for emprunt in emprunts:
-            emp[emprunt.code] = {'date_retour':emprunt.date_retour,'date_emprunt': emprunt.date_emprunt,'user':getUserById(emprunt.user),'isbn':emprunt.book,'book':getBookInfo(emprunt.book)}
-        return render_template("auth/profile/dashboard/general.html", user=session["user"], infos=info,emprunts=emp)
+            emp[emprunt.code] = {'date_retour': emprunt.date_retour, 'date_emprunt': emprunt.date_emprunt, 'user': getUserById(
+                emprunt.user), 'isbn': emprunt.book, 'book': getBookInfo(emprunt.book)}
+        return render_template("auth/profile/dashboard/general.html", user=session["user"], infos=info, emprunts=emp)
 
 
 @main.route('/dashboard/livres')
@@ -93,13 +94,15 @@ def dash_emprunts():
         else:
             all_user = getAllUser()
             all_book = getAllBook()
-            return render_template("auth/profile/dashboard/emprunts.html", all_book=all_book, all_user=all_user, user=session["user"], empruntEnCours=emprunts,code=code)
+            return render_template("auth/profile/dashboard/emprunts.html", all_book=all_book, all_user=all_user, user=session["user"], empruntEnCours=emprunts, code=code)
     else:
         emprunts = None
         form = request.form
-       
-        verif1 = Emprunt.query.filter_by(user=form['matricule'], book=form['isbn'],statut = 1).first()
-        verif2 = Emprunt.query.filter_by(user=form['matricule'],statut = 1).all()
+
+        verif1 = Emprunt.query.filter_by(
+            user=form['matricule'], book=form['isbn'], statut=1).first()
+        verif2 = Emprunt.query.filter_by(
+            user=form['matricule'], statut=1).all()
         print(verif2)
         if (verif1 == None):
             if len(verif2) < 3:
@@ -116,15 +119,15 @@ def dash_emprunts():
                 }
 
                 emprunt = Emprunt(code=form['code'],
-                                user_mat=form['matricule'],
-                                book=form['isbn'],
-                                date_emprunt = form['dateE'],
-                                date_retour = form['dateR'])
+                                  user_mat=form['matricule'],
+                                  book=form['isbn'],
+                                  date_emprunt=form['dateE'],
+                                  date_retour=form['dateR'])
                 db.session.add(emprunt)
                 db.session.commit()
                 return render_template("success.html", user=session["user"], empruntEnCours=emprunts)
             else:
-                return render_template("success.html", user=session["user"], empruntEnCours=emprunts,erreur="Nombre d'emprunt max atteint")
+                return render_template("success.html", user=session["user"], empruntEnCours=emprunts, erreur="Nombre d'emprunt max atteint")
         else:
             code = f"LIB{datetime.datetime.now().strftime('%d%M%S')}"
             emprunts = None
@@ -133,7 +136,36 @@ def dash_emprunts():
             else:
                 all_user = getAllUser()
                 all_book = getAllBook()
-                if session['user']["role"] ==1:
-                    return render_template("success.html", user=session["user"], empruntEnCours=emprunts,erreur="Livre déja emprunté")
+                if session['user']["role"] == 1:
+                    return render_template("success.html", user=session["user"], empruntEnCours=emprunts, erreur="Livre déja emprunté")
                 else:
-                    return render_template("success.html", user=session["user"], empruntEnCours=emprunts,erreur="Vous avez déja emprunté ce livre et il n'a pas encore été rendu")
+                    return render_template("success.html", user=session["user"], empruntEnCours=emprunts, erreur="Vous avez déja emprunté ce livre et il n'a pas encore été rendu")
+
+
+@main.route('/dashboard/depot', methods=['GET', 'POST'])
+def depot():
+    if request.method == "GET":
+        if not('user' in session):
+            return redirect(url_for('auth.signin'))
+        else:
+            code_emprunt = request.args.get('code_emprunt')
+            verif = Emprunt.query.filter_by(
+                code=code_emprunt, statut=1).first()
+            if verif:
+                emprunt = Emprunt.query.filter_by(code=code_emprunt).first()
+                res = {"info": emprunt, "book": getBookInfo(
+                    emprunt.book), "user": getUserById(emprunt.user)}
+                session['thread'] = code_emprunt
+                return render_template("auth/profile/dashboard/emprunts.html", user=session["user"], emprunt=res)
+            else:
+                pass
+    else:
+        if not('user' in session):
+            return redirect(url_for('auth.signin'))
+        else:
+            code_emprunt = session['thread']
+            emprunt = Emprunt.query.filter_by(code=code_emprunt).first()
+            emprunt.statut = 0
+            emprunt.description = request.form['description']
+            db.session.commit()
+            return redirect(url_for('data_lib.dash_redirect'))

@@ -25,6 +25,7 @@ class Emprunt(Base):
     date_emprunt = db.Column(db.String(128),  nullable=False)
     date_retour = db.Column(db.String(128),  nullable=False)
     statut = db.Column(db.SmallInteger, nullable=False,default=1)
+    description = db.Column(db.String(128),  nullable=False,default="")
     
 
     # New instance instantiation procedure
